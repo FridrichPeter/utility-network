@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>Utility Network - Validácia Topológie Cheat Sheet</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; background: #f8f9fa; color: #333; }
+    h1, h2 { color: #2c3e50; }
+    details { background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 1em; margin-bottom: 1em; }
+    summary { font-weight: bold; cursor: pointer; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1em; }
+    th, td { border: 1px solid #ddd; padding: 0.5em; text-align: left; }
+    th { background-color: #eaeaea; }
+    td ul { margin: 0; padding-left: 1.2em; }
+    .checklist-container { margin-top: 1em; }
+    .checklist-container input[type="checkbox"] { margin-right: 0.5em; }
+    #completion-message { display: none; margin-top: 1em; font-weight: bold; color: green; }
+  </style>
+</head>
+<body>
+  <h1>Utility Network Cheat Sheet: Validácia Topológie</h1>
+
+  <details open>
+    <summary>Základné operácie</summary>
+    <ul>
+      <li><strong>Validate Network Topology (Ribbon):</strong> Rýchla validácia siete v aktívnej mape.</li>
+      <li><strong>Validate Network Topology (GP Tool):</strong> Použi pre väčší rozsah alebo plánovanú úlu.</li>
+      <li><strong>REST API:</strong> Programatická validácia siete z externých systémov.</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>Chyby a riešenia</summary>
+    <table>
+      <thead>
+        <tr><th>Kód</th><th>Názov chyby</th><th>Popis problému</th><th>Riešenie</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>8</td><td>No junction-edge rule</td><td>Bodový prvok je pripojený k línii, ale neexistuje pravidlo pre spojenie.</td><td><ul><li>Pridať chýbajúce pravidlo</li><li>Opraviť asset group/type</li></ul></td></tr>
+        <tr><td>9</td><td>More than one junction-edge rule</td><td>Viacero pravidiel povoľuje spojenie, vzniká nejednoznačnosť.</td><td><ul><li>Použiť Terminal Connections tool</li><li>Odstrániť nadbytočné pravidlá</li></ul></td></tr>
+        <tr><td>10</td><td>Edges are different subtypes</td><td>Línie sa stretávajú bez bodu a majú rôzne typy.</td><td><ul><li>Zladiť typy assetov</li><li>Vložiť spojovací bod (napr. riser)</li><li>Zlúčiť línie</li></ul></td></tr>
+        <tr><td>23</td><td>Invalid subtype/discriminator</td><td>Asset typ mimo povolených hodnôt (domén).</td><td><ul><li>Opraviť hodnotu cez editáciu alebo Calculate Field</li></ul></td></tr>
+        <tr><td>25</td><td>Stacked point features</td><td>Body s rovnakou x/y/z pozíciou.</td><td><ul><li>Zmeniť Z hodnotu</li><li>Odstrániť duplikát</li></ul></td></tr>
+        <tr><td>35</td><td>Unsupported structural attachment</td><td>Neplatná štrukturálna asociácia medzi prvkami.</td><td><ul><li>Odstrániť asociáciu</li><li>Upraviť asset group/type</li></ul></td></tr>
+        <tr><td>36</td><td>Line has invalid From/To terminal</td><td>Terminál na línii bez pripojeného zariadenia.</td><td><ul><li>Nastaviť From/To na None</li><li>Použiť Terminal Connections tool</li></ul></td></tr>
+        <tr><td>39</td><td>Invalid terminal configuration</td><td>Neplatná konfigurácia terminálov (napr. migrácia).</td><td><ul><li>Použiť Terminal Paths tool a vybrať platnú cestu</li></ul></td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details>
+    <summary>Dirty Areas: Ako na ne</summary>
+    <ul>
+      <li>Dirty Area vzniká pri každej editácii siete (geometria, terminály, asociácie).</li>
+      <li>Zobraz v mape ako podvrstvu Utility Network vrstvy.</li>
+      <li>Pole <code>UpdateType</code> ukazuje zdroj zmien (Insert, Update, Delete, Error).</li>
+      <li>Validáciou sa Dirty Area odstráni alebo zmení na Error Feature.</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>Kontrolný checklist pre migráciu a validáciu siete</summary>
+    <div class="checklist-container">
+      <label><input type="checkbox" class="task"> Overiť verzie softvéru</label><br>
+      <label><input type="checkbox" class="task"> Zálohovať databázu</label><br>
+      <label><input type="checkbox" class="task"> Vybrať datový model</label><br>
+      <label><input type="checkbox" class="task"> Importovať pravidlá</label><br>
+      <label><input type="checkbox" class="task"> Skontrolovať subtypes a typy</label><br>
+      <label><input type="checkbox" class="task"> Spustiť Analyze Network Data</label><br>
+      <label><input type="checkbox" class="task"> Preskúmať vrstvy chýb</label><br>
+      <label><input type="checkbox" class="task"> Vyplniť Error Resolutions Table</label><br>
+      <label><input type="checkbox" class="task"> Spustiť Apply Resolutions</label><br>
+      <label><input type="checkbox" class="task"> Aktivovať topológiu siete</label><br>
+      <label><input type="checkbox" class="task"> Spustiť Validate Topology</label><br>
+      <label><input type="checkbox" class="task"> Overiť Dirty Areas</label><br>
+      <label><input type="checkbox" class="task"> Overiť tracing siete</label><br>
+      <label><input type="checkbox" class="task"> Exportovať čistú verziu GDB</label><br>
+    </div>
+    <div id="completion-message">✅ Kontrola splnená!</div>
+  </details>
+
+  <script>
+    const checkboxes = document.querySelectorAll('.task');
+    const message = document.getElementById('completion-message');
+
+    function checkCompletion() {
+      const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+      message.style.display = allChecked ? 'block' : 'none';
+    }
+
+    checkboxes.forEach(cb => cb.addEventListener('change', checkCompletion));
+  </script>
+</body>
+</html>
