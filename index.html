@@ -18,8 +18,38 @@
   </style>
 </head>
 <body>
-  <h1>Utility Network Cheat Sheet: Validácia Topológie</h1>
+  <h1>Utility Network Cheat Sheet:</h1>
 
+
+  <details>
+    <summary>Základy Utility Network: Asset Groups, Types, Subnetworks, Tiers</summary>
+    <ul>
+      <li><strong>Asset Groups & Types:</strong> Každý prvok siete je zaradený do skupiny (Asset Group) a má typ (Asset Type), ktoré určujú jeho správanie a pravidlá pripojenia.</li>
+      <li><strong>Subnetworks:</strong> Definujú logické podsiete ako elektrické obvody alebo optické trasy. Každý má svoj Subnetwork Controller (napr. OLT v optike).</li>
+      <li><strong>Tiers:</strong> Hierarchická úroveň v rámci domény (napr. Transmission, Distribution). Pomáha modelovať sieť podľa úrovní riadenia a distribúcie.</li>
+      <li><strong>Terminály:</strong> Umožňujú špecifikovať vstupné a výstupné body pre prvky ako prepínače alebo rozbočovače.</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>Základné pojmy z oblasti Telco a Fiber sietí</summary>
+    <ul>
+      <li><strong>FTTH (Fiber to the Home):</strong> Optika vedie až k zákazníkovi. Najvyššia kvalita spojenia. Technológia: PON/GPON.</li>
+      <li><strong>FTTN (Fiber to the Node):</strong> Optika vedie po najbližší uzol, zvyšok metalikou. Lacnejšie, ale horšia kvalita.</li>
+      <li><strong>FTTC (Fiber to the Curb):</strong> Optika po chodník, zvyšok metalikou. Kompromis.</li>
+      <li><strong>FTTB (Fiber to the Building):</strong> Optika do budovy, ďalej rozvody.</li>
+      <li><strong>PON/GPON:</strong> Pasívna optická sieť, zdieľanie vlákna, nevyžaduje napájanie.</li>
+      <li><strong>Wireless Tower:</strong> Modelovanie veží pre mobilné siete.</li>
+      <li><strong>Microwave Backhaul:</strong> Mikrovlnné spojenie medzi vežami.</li>
+      <li><strong>Laser Bridge:</strong> Spojenie laserom, krátke vzdialenosti.</li>
+      <li><strong>Fixed Wireless:</strong> Pevné bezdrôtové pripojenie pre odľahlé oblasti.</li>
+      <li><strong>HFC (Hybrid Fiber-Coax):</strong> Kombinácia optiky a koaxiálu, bežná v káblovkách.</li>
+      <li><strong>Coax:</strong> Koaxiálny kábel, používaný v TV, nižšia kvalita.</li>
+      <li><strong>Copper:</strong> Tradičná medená sieť (DSL), nahradzovaná optikou.</li>
+    </ul>
+  </details>
+
+  
   <details open>
     <summary>Základné operácie</summary>
     <ul>
